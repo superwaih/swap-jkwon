@@ -5,6 +5,8 @@ import {FaArrowCircleRight} from "react-icons/fa"
 
 const StepOne = () => {
     const {userData, setUserData, handleNextClick } = useFormContext()
+    console.log(userData["paymentCrypto"])
+
     
   return (
     <form className='px-2 flex lg:flex-row w-full justify-between lg:space-x-16 py-3 md:py-6 md:p-8 flex-col'>
@@ -29,6 +31,8 @@ const StepOne = () => {
             <option value="usdt_erc20">USDT ERC20</option>
             <option value="busd_erc20">BUSD ERC20</option>
             <option value="eth">ETH</option>
+            <option value="">ETH</option>
+
             <option value="bitcon">BitCoin</option>
             </select> 
         </div>
@@ -51,8 +55,9 @@ const StepOne = () => {
         
       <div className="w-full md:w-3/4 items-center md:items-end justify-center mx-auto mr-6 md:justify-end pt-12">
       <button 
+      disabled={!userData["amount"] && userData["paymentCrypto"] !== undefined || !userData["paymentCrypto"]}
       onClick={() => handleNextClick("two")}
-      className='bg-[#ccc3c3] font-bold flex items-center justify-evenly w-full py-6 rounded-full p-6 text-xl ' >
+      className='bg-[#ccc3c3] font-bold flex border-2 border-black items-center disabled:opacity-50 justify-evenly w-full py-6 rounded-full p-6 text-xl ' >
             Continue
             <FaArrowCircleRight />
         </button>

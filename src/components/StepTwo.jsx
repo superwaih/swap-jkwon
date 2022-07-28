@@ -19,7 +19,7 @@ const StepTwo = () => {
             className='p-5 font-bold outline outline-1 bg-inherit' type="text" name="" id="" placeholder='Firstname*' />
             <input 
              value={userData["lastname"]}
-             onChange={(e) => setUserData({...userData, "lastnamename": e.target.value})}
+             onChange={(e) => setUserData({...userData, "lastname": e.target.value})}
             
             className='p-5 outline font-bold outline-1 bg-inherit' type="text" placeholder='Lastname*' />
             <input 
@@ -40,17 +40,22 @@ const StepTwo = () => {
 
         <div className='flex flex-col-reverse md:flex-row items-center justify-center gap-8  mt-12 lg:items-end lg:justify-end'>
           <button
-          className='p-6 bg-[#ccc3c3] text-xl font-bold flex items-center gap-8 rounded-full px-12'
-          onClick={() => handleNextClick("two")}>
+            onClick={() => handleNextClick("one")}
+
+          className='p-6 bg-[#ccc3c3] border-2 border-black text-xl font-bold flex items-center gap-8 rounded-full px-12'
+          
+          >
             <FaArrowCircleLeft />
             Back
           
           </button>
          
           <button
-        onClick={() => handleNextClick("three")}
+          disabled={!userData["firstname"] && !userData["lastname"] && !userData["email"] && !userData["address"]}
+          
+          onClick={() => handleNextClick("three")}
 
-          className='p-6 bg-[#ccc3c3] text-xl font-bold flex items-center gap-8 rounded-full px-12'>
+          className='p-6 bg-[#ccc3c3] border-2 border-black disabled:opacity-50 text-xl font-bold flex items-center gap-8 rounded-full px-12'>
             Continue <FaArrowCircleRight />
             </button>
         </div>
