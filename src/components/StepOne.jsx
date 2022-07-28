@@ -15,10 +15,11 @@ const StepOne = () => {
         <h3 className='text-xl py-8 md:text-2xl font-bold'>Enter Amount & Payment Method</h3>
         <div className="inputs space-y-8 w-full">
             <input
+            min="3"
             value={userData["amount"]}
             onChange={(e) => setUserData({...userData, "amount": e.target.value})}
             
-            className='p-6 border-black bg-inherit outline outline-1 w-full' type="number" placeholder='Enter an Amount' />
+            className='p-6 border-black bg-inherit outline outline-1 w-full' type="number" placeholder='Enter an Amount, Minimum 3' />
 
             <select 
             value={userData["paymentCrypto"]}
