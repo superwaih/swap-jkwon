@@ -26,12 +26,13 @@ const StepOne = () => {
             
             className='p-4 text-xl bg-inherit font-semibold outline outline-1 w-full' name="crypto" id="">
             <option value="">Select Crypto</option>
-            <option value="bnb">BSC BNB</option>   
+            <option value="bnb">BSC BNB</option> 
+            <option value="bnb_bep2">BEP2 BNB</option> 
+
             <option value="sol">Solana</option>
             <option value="usdt_erc20">USDT ERC20</option>
             <option value="busd_erc20">BUSD ERC20</option>
             <option value="eth">ETH</option>
-            <option value="">ETH</option>
 
             <option value="bitcon">BitCoin</option>
             </select> 

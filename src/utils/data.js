@@ -8,7 +8,8 @@ export const data = [
     {
         "id": 1,
         "network": "erc20",
-        "token_name": "eth",
+        "token_name": "ETH",
+        "value": "eth",
         "qr_code": ERCBSCCode,
         "address": "0x6d517846a84f882c7018cABfBBF9961bf0Af1f92"
     },
@@ -16,8 +17,7 @@ export const data = [
         "id": 2,
         "network": "erc20",
         "token_name": "USDT",
-        "value": "usdt",
-
+        "value": "usdt_erc20",
         "qr_code": ERCBSCCode,
         "address": "0x6d517846a84f882c7018cABfBBF9961bf0Af1f92"
     },
@@ -26,14 +26,12 @@ export const data = [
         "network": "erc20",
         "token_name": "busd",
         "value": "busd_erc20",
-
         "qr_code": ERCBSCCode,
         "address": "0x6d517846a84f882c7018cABfBBF9961bf0Af1f92"
     },
     {
         "id": 4,
         "network": "bsc",
-        
         "token_name": "bnb",
         "qr_code": ERCBSCCode,
         "address": "0x6d517846a84f882c7018cABfBBF9961bf0Af1f92"
