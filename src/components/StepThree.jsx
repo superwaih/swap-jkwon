@@ -10,7 +10,7 @@ import Spinner from './Spinner';
 
 
 const StepThree = () => {
-  const {userData, finalData, loading, setUserData, submitData} = useFormContext()
+  const {userData, loading, handleNextClick, setUserData, submitData} = useFormContext()
   const notify = (text) => {
     navigator.clipboard?.writeText && navigator.clipboard.writeText(text)
     toast.success("Address Copied!", {
@@ -49,7 +49,7 @@ const StepThree = () => {
               <p>Wallet Address of the selected crypto will appear here</p>
             )}
                
-            {data.filter((data) => data.value == userData["paymentMode"]).map((data) => {
+            {data.filter((data) => data.value === userData["paymentMode"]).map((data) => {
               
               return(
                 <>
@@ -82,10 +82,10 @@ const StepThree = () => {
        
             <div className='max-w-[300px] grid m-auto' >
               
-            {data.filter((data) => data.value == userData["paymentMode"]).map((data) => {
+            {data.filter((data) => data.value === userData["paymentMode"]).map((data) => {
               return(
                 <img
-               
+               alt='Wallet Address Qr Code'
                 key={data.id}
                 src={data.qr_code}
 
@@ -104,6 +104,7 @@ const StepThree = () => {
       <div className="btn flex flex-col-reverse lg:flex-row gap-4 items-center justify-center lg:items-end lg:justify-end p-8">
 
         <button
+        onClick={() => handleNextClick("two")}
           className=' py-6 bg-[#ccc3c3] border-2 border-black disabled:opacity-50 text-xl font-bold flex items-center gap-8 rounded-full px-12 lg:px-20'>
           Back
         </button>
