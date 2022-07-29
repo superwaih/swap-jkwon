@@ -1,11 +1,40 @@
 import React from 'react'
 import { useFormContext } from '../FormContext'
 import {FaArrowCircleRight} from "react-icons/fa"
+import { useState } from 'react'
 
 
 const StepOne = () => {
+    let valueRec;
     const {userData, setUserData, handleNextClick } = useFormContext()
-    console.log(userData["paymentCrypto"])
+
+  
+     
+  
+     if(userData["paymentCrypto"] === "bnb" && (userData["amount"])){
+        valueRec = userData["amount"] * 277 / 0.01
+     }
+
+     if(userData["paymentCrypto"] === "sol" && (userData["amount"])){
+      valueRec = userData["amount"] * 43 / 0.01
+   }
+
+  if(userData["paymentCrypto"] === "eth" && (userData["amount"])){
+    valueRec = userData["amount"] * 1500 / 0.01
+  }
+  if(userData["paymentCrypto"] === "usdt_erc20" && (userData["amount"])){
+    valueRec = userData["amount"] * 1 / 0.01
+  }
+  if(userData["paymentCrypto"] === "busd_erc20" && (userData["amount"])){
+    valueRec = userData["amount"] * 1 / 0.01
+  }
+ 
+
+  if(userData["paymentCrypto"] === "bnb_bep2" && (userData["amount"])){
+    valueRec = userData["amount"] * 277 / 0.01
+  }
+  
+     
 
     
   return (
@@ -15,11 +44,13 @@ const StepOne = () => {
         <h3 className='text-xl py-8 md:text-2xl font-bold'>Enter Amount & Payment Method</h3>
         <div className="inputs space-y-8 w-full">
             <input
-            min="3"
             value={userData["amount"]}
             onChange={(e) => setUserData({...userData, "amount": e.target.value})}
             
             className='p-6 border-black bg-inherit outline outline-1 w-full' type="number" placeholder='Enter an Amount, Minimum 3' />
+            {(userData["amount"] < 3) &&  !(userData["paymentCrypto"]  === "bitcoin") && (
+              <span>enter an amount greater than 3!</span>
+            )}
 
             <select 
             value={userData["paymentCrypto"]}
@@ -29,13 +60,10 @@ const StepOne = () => {
             <option value="">Select Crypto</option>
             <option value="bnb">BSC BNB</option> 
             <option value="bnb_bep2">BEP2 BNB</option> 
-
             <option value="sol">Solana</option>
             <option value="usdt_erc20">USDT ERC20</option>
             <option value="busd_erc20">BUSD ERC20</option>
             <option value="eth">ETH</option>
-
-            <option value="bitcon">BitCoin</option>
             </select> 
         </div>
         </div>
@@ -51,15 +79,19 @@ const StepOne = () => {
         <h3 className='text-xl py-8 md:text-2xl font-bold'>You Receive</h3>
 
         <div className="receive font-bold space-y-8 flex flex-col">
-           <input disabled className='p-6 outline outline-1 bg-inherit' type="number" placeholder='=0' />
-           <p className='text-xl uppercase' >1 Jkwon = $ ---</p>
+           <input disabled 
+
+           value={valueRec !== undefined ? `${valueRec} Jkwon` : `0 Jkwon` }
+           
+           className='p-6 outline outline-1 bg-inherit' placeholder='=0' />
+           <p className='text-xl uppercase' >1 Jkwon = $0.01</p>
         </div>
         
       <div className="w-full md:w-3/4 items-center md:items-end justify-center mx-auto mr-6 md:justify-end pt-12">
       <button 
-      disabled={!userData["amount"] && userData["paymentCrypto"] !== undefined || !userData["paymentCrypto"]}
+      disabled={(!userData["amount"]) && ((userData["paymentCrypto"] !== undefined) || (!userData["paymentCrypto"]))}
       onClick={() => handleNextClick("two")}
-      className='bg-[#ccc3c3] font-bold flex border-2 border-black items-center disabled:opacity-50 justify-evenly w-full py-6 rounded-full p-6 text-xl ' >
+      className='bg-[#ccc3c3] font-bold flex border-2 border-black items-center disabled:opacity-50 justify-center gap-8 w-full md:w-3/5 py-6 rounded-full text-xl ' >
             Continue
             <FaArrowCircleRight />
         </button>

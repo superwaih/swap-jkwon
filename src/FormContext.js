@@ -1,5 +1,6 @@
 
 import React, { createContext, useContext, useState } from "react"
+import {  toast } from 'react-toastify';
 
 import App from "./App"
 
@@ -24,7 +25,16 @@ const FormProvider = () => {
 
     function submitData(){
         setLoading(true)
-        
+        try {
+            console.log("data sent")
+            toast.success("message sent")
+           setLoading(false)
+
+        } catch (error) {
+           setLoading(false)
+            toast.error("An error occured")
+        }
+
 
     } 
    
@@ -38,6 +48,7 @@ const FormProvider = () => {
             handleActiveStep,
             submitData,
             userData, 
+            loading,
             handleNextClick,
             setUserData,
             finalData, 

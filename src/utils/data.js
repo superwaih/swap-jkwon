@@ -32,7 +32,9 @@ export const data = [
     {
         "id": 4,
         "network": "bsc",
-        "token_name": "bnb",
+        "token_name": "BNB",
+        "value": "bnb",
+
         "qr_code": ERCBSCCode,
         "address": "0x6d517846a84f882c7018cABfBBF9961bf0Af1f92"
     },
