@@ -1,5 +1,8 @@
 import React from 'react'
 import axios from "axios"
+import { Table, Thead, Tbody, Tr, Th, Td } from "@chakra-ui/react";
+import { ChakraProvider } from '@chakra-ui/react'
+
 import { useState } from 'react'
 import { useEffect } from 'react'
 const Admin = () => {
@@ -8,6 +11,9 @@ const Admin = () => {
 
   }, [])
   return (
+    <ChakraProvider>
+
+   
     <div className='m-auto p-8 w-[95%]'>
       <h1 className='font-bold text-2xl'>Admin Page</h1>
     <h3 className='text-center font-semibold text-3xl mt-8'>List of Received Transactions</h3>
@@ -51,33 +57,32 @@ const Admin = () => {
               </Tr>
             </Thead>
             <Tbody>
-              {data?.projects_analytics?.map((data, idx) => (
+              
                 <Tr
-                  key={idx}
-                  onClick={() => router.push(`/${username}/${data?.slug}`)}
                   className="cursor-pointer"
                 >
                   <Td px="15px" className="text-sm sm:text-[15px]">
-                    {data?.title}
+                    wale
                   </Td>
                   <Td px="15px" className="text-sm sm:text-[15px]">
-                    {data?.total_views ?? 0}
+                    tade
                   </Td>
                   <Td px="15px" className="text-sm sm:text-[15px]">
-                    {data?.comment_count ?? 0}
+                    wale
                   </Td>
                   <Td px="15px" className="text-sm sm:text-[15px]">
-                    {data?.like_count ?? 0}
+                    kunle
                   </Td>
                   <Td px="15px" className="text-sm sm:text-[15px]">
-                    {data?.status}
+                    valencia
                   </Td>
                 </Tr>
-              ))}
+              
             </Tbody>
           </Table>
 
     </div>
+    </ChakraProvider>
   )
 }
 

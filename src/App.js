@@ -10,7 +10,7 @@ function App() {
  
  
   return (
-    <ChakraProvider>
+    
 
     
     <BrowserRouter>
@@ -21,7 +21,7 @@ function App() {
       <Route path="/admin" exact element={<Admin />} />
     </Routes>
     </BrowserRouter>
-    </ChakraProvider>
+   
   );
 }
 
