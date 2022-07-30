@@ -10,7 +10,9 @@ const FormContext = createContext()
 export const useFormContext =() => useContext(FormContext)
 
 const FormProvider = () => {
+   
     const [activeStep, setActiveStep] = useState('one')
+  
 
     const handleActiveStep = (e) =>{
       setActiveStep(e.target.id)
@@ -20,6 +22,7 @@ const FormProvider = () => {
         setActiveStep(data)
     }
     const [userData, setUserData] = useState([])
+    const [errors, setError] = useState([])
     const [finalData, setFinalData] = useState([])
     const [loading, setLoading] = useState(false)
 
@@ -27,8 +30,11 @@ const FormProvider = () => {
         setLoading(true)
         try {
             console.log("data sent")
+            setFinalData(finalData => [...finalData, userData])
             toast.success("message sent")
+            console.log(finalData)
            setLoading(false)
+        //    setUserData('')
 
         } catch (error) {
            setLoading(false)
@@ -48,6 +54,9 @@ const FormProvider = () => {
             handleActiveStep,
             submitData,
             userData, 
+            
+            errors,
+            setError,
             loading,
             handleNextClick,
             setUserData,

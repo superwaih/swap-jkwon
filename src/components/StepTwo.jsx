@@ -4,149 +4,143 @@ import { useState } from 'react'
 import { FaArrowCircleRight, FaArrowCircleLeft } from 'react-icons/fa'
 import { useFormContext } from '../FormContext'
 
+import { useForm } from "react-hook-form";
+
 const StepTwo = () => {
-  const [errors, setError] = useState([])
-  const [checks, setChecks] = useState("")
   const { userData, setUserData, handleNextClick } = useFormContext()
 
-  function isValidEmail(email) {
-    return /\S+@\S+\.\S+/.test(email);
-  }
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
-  const handleFirstNameChange = (e) =>{
-    setUserData({ ...userData, "firstname": e.target.value })
-    if ((e.target.value).length < 3) {
-      setError(current => [...current, "firstname"]);
-
-    }else{
-      setChecks("one")
-      setError((current) => current.filter(emp => {
-        return emp !== "firstname"
-      }))
-    }
-  }
-
-  const handleLastNameChange = (e) =>{
-    
-    setUserData({ ...userData, "lastname": e.target.value })
-
-    if ((e.target.value).length < 3) {
-      setError(current => [...current, "lastname"]);
-    }else{
-      setChecks("two")
-      setError((current) => current.filter(emp => {
-        return emp !== "lastname"
-      }))
-
-    }
-  }
-
-  const handleChange = (e) =>{
-    setUserData({ ...userData, "email": e.target.value})
-    if (!isValidEmail(e.target.value)) {
-      setError(current => [...current, "email"]);
-    }else{
-      setError((current) => current.filter(emp => {
-        return emp !== "email"
-      }))
-
-    }
-  }
- const handleMidNext = (e) =>{
-    e.preventDefault()
+  const onSubmit = (data) => {
+    console.log(data);
+    console.log(errors);
+    setUserData({...userData, "firstname" : data.firstname, "lastname" : data.lastname,
+    "email" : data.email,
+    "wallet_address" : data.wallet_address,
+    "phone_number" : data.phone_number,
+  })
     handleNextClick("three")
-    setError([''])
-    console.log(errors)
- }
-
-  const handleWalletAddress = (e) =>{
-    setUserData({ ...userData, "wallet_address": e.target.value })
-
-    if ((userData["wallet_address"] && (e.target.value).length < 30)) {
-      setError(current => [...current, "wallet"]);
-      
-    }else{
-      setChecks("four")
-      setError((current) => current.filter(emp => {
-        return emp !== "wallet"
-      }))
-    }
   }
 
-  
+
+  useEffect(() => {
+    if (userData) {
+      setValue("firstname", userData?.firstname);
+      setValue("lastname", userData?.lastname);
+      setValue("email", userData?.email);
+      setValue("wallet_address", userData?.wallet_address);
+      setValue("phone_number", userData?.phone_number);
+    }
+  }, [userData, setValue]);
+
+  const handleBack = () => {
+    handleNextClick("one")
+  }
+
+
+
+
 
   return (
-    <form className='p-8 w-full'>
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className='p-8 w-full'>
       <h3 className='text-xl py-8 md:text-2xl font-bold' >Enter your details</h3>
       <div className='inputs grid grid-cols-1 md:grid-cols-2 gap-8' >
 
-       <div className='flex flex-col' > 
-       <input
-          value={userData["firstname"]}
-          required
-          onChange={handleFirstNameChange}
-          className='p-5 font-bold outline outline-1 bg-inherit' type="text" name="" id="" placeholder='Firstname*' />
-          {userData["firstname"] && errors.includes("firstname") && (
-            
-            <span className='font-bold text-red-500 text-md' >Please enter a valid name </span>
-          ) }
-          </div> 
-
-    <div className='flex flex-col'>
-    <input
-          value={userData["lastname"]}
-          required
-          onChange={handleLastNameChange}
-          className='p-5 outline font-bold outline-1 bg-inherit' type="text" placeholder='Lastname*' />
-          {userData["lastname"] && errors.includes("lastname") && (
-            
-            <span className='font-bold text-red-500 text-md' >Please enter a valid name </span>
-          ) }
-    </div>
-    <div className="flex flex-col">
-    <input
-          value={userData["email"]}
-          required
-          type="email"
-            onChange={handleChange}
-          // onChange={(e) => setUserData({ ...userData, "email": e.target.value })}
-          className='p-5 outline font-bold outline-1 bg-inherit'
-          placeholder='Email Address*' />
-           {userData["email"] && errors.includes("email") && (
-            <span className='font-bold text-red-500 text-md' >Please enter a email </span>
-          ) }
 
 
-    
-    </div>
-        
-      <div className="flex flex-col">
+        <div className='flex flex-col' >
+          <input
+            type="text"
+            {...register("firstname", { required: true, maxLength: 30 })}
+            className='p-5 font-bold outline outline-1 bg-inherit' placeholder='Firstname*' />
 
-      <input
-          value={userData["wallet_address"]}
-          required
-          onChange={handleWalletAddress}
-          className='p-5 outline font-bold outline-1 bg-inherit' type="text" name="" id=""
+          {errors.firstname?.type === "required" && (
+                    <span className="text-red-700 text-sm">
+                      Firstname is required
+                    </span>
+                  )}  
+        </div>
 
-          placeholder='Wallet Address*' />
-            {userData["wallet_address"] && errors.includes("wallet") && (
-            <span className='font-bold text-red-500 text-md' >Please enter a valid Wallet Address </span>
-          ) }
-
-      </div>
-      
 
 
         <div className='flex flex-col'>
-        <input
-          value={userData["phone_number"]}
-          onChange={(e) => setUserData({ ...userData, "phone_number": e.target.value })}
-          type="telephone"
-          className='p-5 outline font-bold outline-1 bg-inherit' 
-          placeholder='Phone Number' />
+          <input
+            {...register("lastname", { required: true, maxLength: 20 })}
+            className='p-5 outline font-bold outline-1 bg-inherit' type="text" placeholder='Lastname*' />
+
+              {errors.lastname?.type === "required" && (
+                    <span className="text-red-700 text-sm">
+                      Lastname is required
+                    </span>
+                  )}
 
         </div>
-         
+        <div className="flex flex-col">
+          <input
+
+            type="email"
+            {...register("email", {required: true, pattern: /^\S+@\S+$/i})}
+
+            className='p-5 outline font-bold outline-1 bg-inherit'
+            placeholder='Email Address*' />
+          {errors.email?.type === "required" && (
+                    <span className="text-red-700 text-sm">
+                      Email is required
+                    </span>
+                  )}
+
+            {errors.email?.type === "pattern" && (
+                    <span className="text-red-700 text-sm">
+                      Email valid Email
+                    </span>
+                  )}
+
+        </div>
+
+        <div className="flex flex-col">
+
+          <input
+          {...register("wallet_address", { required: true, minLength: 30 })}
+
+            className='p-5 outline font-bold outline-1 bg-inherit' type="text" id=""
+
+            placeholder='Wallet Address*' />
+         {errors.wallet_address?.type === "required" && (
+                    <span className="text-red-700 text-sm">
+                      Wallet Address is required
+                    </span>
+                  )}
+                  {errors.wallet_address?.type === "minLength" && (
+                    <span className="text-red-700 text-sm">
+                      Enter valid wallet address
+                    </span>
+                  )}
+        </div>
+
+
+
+        <div className='flex flex-col'>
+          <input
+          {...register("phone_number", {minLength: 6, maxLength: 15})}
+
+            type="telephone"
+            className='p-5 outline font-bold outline-1 bg-inherit'
+            placeholder='Phone Number' />
+
+                {errors.phone_number?.type === "minLength" && (
+                    <span className="text-red-700 text-sm">
+                      Enter valid Phone number
+                    </span>
+                  )}  
+                  {errors.phone_number?.type === "maxLength" && (
+                    <span className="text-red-700 text-sm">
+                      Enter valid Phone number
+                    </span>
+                  )} 
+        </div>
+
       </div>
 
       <div className='flex flex-col-reverse md:flex-row items-center justify-center gap-8  mt-12 lg:items-end lg:justify-end'>
@@ -163,26 +157,14 @@ const StepTwo = () => {
 
         <button
           type="submit"
-          disabled={errors.length !==  0}
-
-          onClick={handleMidNext}
-
+          // onClick={() => handleNextClick("three")}
 
           className='p-6 bg-[#ccc3c3] border-2 border-black disabled:opacity-50 text-xl font-bold flex items-center gap-8 rounded-full px-12'>
           Continue <FaArrowCircleRight />
         </button>
       </div>
 
-      {/* <div className="checkboxes flex flex-col pt-6 py-4 space-y-4">
-           <div className='space-x-2' >
-           <input className=''  type="checkbox" name="terms" id="" />
-            <label htmlFor="terms">By submitting this form you agree to ourTermsandPrivacy Policy.</label>
-           </div>
-           <div className='space-x-2' >
-           <input type="checkbox" name="promotions" id="" />
-            <label htmlFor="promotions">By submitting this form you agree to ourTermsandPrivacy Policy.</label>
-           </div>
-        </div> */}
+
 
 
     </form>

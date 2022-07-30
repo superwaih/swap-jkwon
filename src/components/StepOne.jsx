@@ -5,8 +5,43 @@ import { useState } from 'react'
 
 
 const StepOne = () => {
+  const [formErrors, setFormErrors] = useState({});
+
     let valueRec;
     const {userData, setUserData, handleNextClick } = useFormContext()
+
+
+    const validate = (values) => {
+      const errors = {};
+    
+      if (!values["amount"]) {
+        errors.amount = "amount is required!";
+      }else if((values["amount"] < 3) &&  (!values["paymentCrypto"]  === "eth")){
+        errors.amount = "please enter an amount greater than 3!";
+      }else if((values["amount"] < 0.1) &&  (values["paymentCrypto"]  === "eth")){
+        errors.amount = "please enter an amount greater or equal to than 0.1 ETH!";
+
+      }
+      if (!values["paymentCrypto"]) {
+        errors.payment = "please select a mode of payment!";
+      } else if (values["paymentCrypto"] === undefined) {
+        errors.payment = "please select a mode of payment!";
+      }
+    
+      
+      return errors;
+    };
+
+    const handleSubmit = (e) =>{
+      e.preventDefault();
+      (setFormErrors(validate(userData)))
+
+      if(Object.keys(formErrors).length === 0){
+        handleNextClick("two")
+  
+      }
+    }
+  
 
   
      
@@ -38,7 +73,8 @@ const StepOne = () => {
 
     
   return (
-    <form className='px-2 flex lg:flex-row w-full justify-between lg:space-x-16 py-3 md:py-6 md:p-8 flex-col'>
+    <form onSubmit={handleSubmit} 
+    className='px-2 flex lg:flex-row w-full justify-between lg:space-x-16 py-3 md:py-6 md:p-8 flex-col'>
         
         <div className='w-full' >
         <h3 className='text-xl py-8 md:text-2xl font-bold'>Enter Amount & Payment Method</h3>
@@ -47,9 +83,12 @@ const StepOne = () => {
             value={userData["amount"]}
             onChange={(e) => setUserData({...userData, "amount": e.target.value})}
             
-            className='p-6 border-black bg-inherit outline outline-1 w-full' type="number" placeholder='Enter an Amount, Minimum 3' />
-            {(userData["amount"] < 3) &&  !(userData["paymentCrypto"]  === "bitcoin") && (
-              <span>enter an amount greater than 3!</span>
+            className='p-6 border-black bg-inherit outline outline-1 w-full' type="number" placeholder='Enter an Amount, Minimum 3, 150$ minimum for ETH' />
+            {(userData["amount"] < 3) &&  !(userData["paymentCrypto"]  === "eth") && (
+              <span>enter an amount greater than 3 and 150$ minimum for ETH! </span>
+            )}
+            {(userData["amount"] < 0.1) &&  (userData["paymentCrypto"]  === "eth") && (
+              <span>enter an amount greater than 0.1 for ETH! </span>
             )}
 
             <select 
@@ -89,8 +128,9 @@ const StepOne = () => {
         
       <div className="w-full md:w-3/4 items-center md:items-end justify-center mx-auto mr-6 md:justify-end pt-12">
       <button 
-      disabled={(!userData["amount"]) && ((userData["paymentCrypto"] !== undefined) || (!userData["paymentCrypto"]))}
-      onClick={() => handleNextClick("two")}
+      type='submit'
+      disabled={(userData["paymentCrypto"] === undefined)}
+      
       className='bg-[#ccc3c3] font-bold flex border-2 border-black items-center disabled:opacity-50 justify-center gap-8 w-full md:w-3/5 py-6 rounded-full text-xl ' >
             Continue
             <FaArrowCircleRight />

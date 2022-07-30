@@ -18,6 +18,38 @@ const StepThree = () => {
       autoClose: 5000,})
     // const copyText = 
   };
+
+    let recieveAmount;
+    if (userData["paymentMode"] === "bnb" && (userData["amount"])) {
+      recieveAmount = userData["amount"] * 277 / 0.01
+    }
+
+    if (userData["paymentMode"] === "sol" && (userData["amount"])) {
+      recieveAmount = userData["amount"] * 43 / 0.01
+
+    }
+
+    if (userData["paymentMode"] === "eth" && (userData["amount"])) {
+      recieveAmount = userData["amount"] * 1500 / 0.01
+
+    }
+    if (userData["paymentMode"] === "usdt_erc20" && (userData["amount"])) {
+      recieveAmount = userData["amount"] * 1 / 0.01
+      
+
+
+    }
+    if (userData["paymentMode"] === "busd_erc20" && (userData["amount"])) {
+      recieveAmount = userData["amount"] * 1 / 0.01
+
+    }
+
+
+    if (userData["paymentMode"] === "bnb_bep2" && (userData["amount"])) {
+      recieveAmount = userData["amount"] * 277 / 0.01
+
+    }
+  
   if (loading) {
     return <Spinner />
   }
@@ -68,9 +100,19 @@ const StepThree = () => {
               )
             })}
            
-        
-                
               </div>
+              {data.filter((data) => data.value === userData["paymentMode"]).map((data) => {
+              
+              return(
+                <>
+                <p key={data.id} className='font-bold' >Please send {userData["amount"]} {data.token_name} to <span
+                onClick={() =>notify(data.address)}
+                className='text-green-400 cursor-pointer break-all' >{data.address}</span> and you'll receive {recieveAmount} Jkwon. Please make sure the amount is correct to avoid any delays. Once you have initaited your payment please click submit and our system will notify you when we have recieved and cleared your funds</p>
+               
+                </>
+              )
+            })}
+              
             </div>
 
 
@@ -84,11 +126,11 @@ const StepThree = () => {
               
             {data.filter((data) => data.value === userData["paymentMode"]).map((data) => {
               return(
+
                 <img
                alt='Wallet Address Qr Code'
                 key={data.id}
                 src={data.qr_code}
-
                 />
               )
             })}

@@ -24,7 +24,7 @@ export const data = [
     {
         "id": 3,
         "network": "erc20",
-        "token_name": "busd",
+        "token_name": "BUSD",
         "value": "busd_erc20",
         "qr_code": ERCBSCCode,
         "address": "0x6d517846a84f882c7018cABfBBF9961bf0Af1f92"
