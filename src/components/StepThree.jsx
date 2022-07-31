@@ -10,7 +10,7 @@ import Spinner from './Spinner';
 
 
 const StepThree = () => {
-  const {userData, loading, handleNextClick, setUserData, submitData} = useFormContext()
+  const {userData, loading, handleNextClick, setUserData, submitForm} = useFormContext()
   const notify = (text) => {
     navigator.clipboard?.writeText && navigator.clipboard.writeText(text)
     toast.success("Address Copied!", {
@@ -20,35 +20,34 @@ const StepThree = () => {
   };
 
     let recieveAmount;
-    if (userData["paymentMode"] === "bnb" && (userData["amount"])) {
-      recieveAmount = userData["amount"] * 277 / 0.01
-    }
+    // if (userData["paymentMode"] === "bnb" && (userData["amount"])) {
+    //   recieveAmount = userData["amount"] * 277 / 0.01
+    // }
 
-    if (userData["paymentMode"] === "sol" && (userData["amount"])) {
-      recieveAmount = userData["amount"] * 43 / 0.01
+    // if (userData["paymentMode"] === "sol" && (userData["amount"])) {
+    //   recieveAmount = userData["amount"] * 43 / 0.01
 
-    }
+    // }
 
-    if (userData["paymentMode"] === "eth" && (userData["amount"])) {
-      recieveAmount = userData["amount"] * 1500 / 0.01
+    // if (userData["paymentMode"] === "eth" && (userData["amount"])) {
+    //   recieveAmount = userData["amount"] * 1500 / 0.01
 
-    }
-    if (userData["paymentMode"] === "usdt_erc20" && (userData["amount"])) {
+    // }
+    if (userData["paymentCrypto"]  && (userData["amount"])) {
       recieveAmount = userData["amount"] * 1 / 0.01
       
 
-
     }
-    if (userData["paymentMode"] === "busd_erc20" && (userData["amount"])) {
-      recieveAmount = userData["amount"] * 1 / 0.01
+    // if (userData["paymentMode"] === "busd_erc20" && (userData["amount"])) {
+    //   recieveAmount = userData["amount"] * 1 / 0.01
 
-    }
+    // }
 
 
-    if (userData["paymentMode"] === "bnb_bep2" && (userData["amount"])) {
-      recieveAmount = userData["amount"] * 277 / 0.01
+    // if (userData["paymentMode"] === "bnb_bep2" && (userData["amount"])) {
+    //   recieveAmount = userData["amount"] * 277 / 0.01
 
-    }
+    // }
   
   if (loading) {
     return <Spinner />
@@ -61,8 +60,8 @@ const StepThree = () => {
           <div className='grid relative grid-cols-1 md:grid-cols-2 p-4 gap-8 md:p-8' >
             <div className='flex gap-4 flex-col'>
             <select 
-            value={userData["paymentMode"]}
-            onChange={(e) => setUserData({...userData, "paymentMode": e.target.value})}
+            value={userData["paymentCrypto"]}
+            // onChange={(e) => setUserData({...userData, "paymentMode": e.target.value})}
             
             className='p-6 w-full text-xl bg-inherit font-semibold outline outline-1' name="crypto" id="">
             <option address="" value="">Select Crypto</option>
@@ -77,11 +76,11 @@ const StepThree = () => {
 
 
               <div className='border-2 flex gap-16 p-4 border-black' >
-              {!userData["paymentMode"] && (
+              {!userData["paymentCrypto"] && (
               <p>Wallet Address of the selected crypto will appear here</p>
             )}
                
-            {data.filter((data) => data.value === userData["paymentMode"]).map((data) => {
+            {data.filter((data) => data.value === userData["paymentCrypto"]).map((data) => {
               
               return(
                 <>
@@ -101,14 +100,21 @@ const StepThree = () => {
             })}
            
               </div>
-              {data.filter((data) => data.value === userData["paymentMode"]).map((data) => {
+              {data.filter((data) => data.value === userData["paymentCrypto"]).map((data) => {
               
               return(
                 <>
-                <p key={data.id} className='font-bold' >Please send {userData["amount"]} {data.token_name} to <span
+                <p key={data.id} className='font-bold' >Please send {userData["amount"]} dollars worth of {data.token_name} to <span
                 onClick={() =>notify(data.address)}
                 className='text-green-400 cursor-pointer break-all' >{data.address}</span> and you'll receive {recieveAmount} Jkwon. Please make sure the amount is correct to avoid any delays. Once you have initaited your payment please click submit and our system will notify you when we have recieved and cleared your funds</p>
+               <input type="text"
+              //  value={userData["recieveAmount"]}
                
+               
+               className='hidden'
+               />
+             
+               {console.log(userData["recieveAmount"])}
                 </>
               )
             })}
@@ -124,7 +130,7 @@ const StepThree = () => {
        
             <div className='max-w-[300px] grid m-auto' >
               
-            {data.filter((data) => data.value === userData["paymentMode"]).map((data) => {
+            {data.filter((data) => data.value === userData["paymentCrypto"]).map((data) => {
               return(
 
                 <img
@@ -151,8 +157,8 @@ const StepThree = () => {
           Back
         </button>
         <button
-        disabled={loading || !(userData["paymentMode"])}
-        onClick={submitData}
+        disabled={loading || !(userData["paymentCrypto"])}
+        onClick={submitForm}
 
           className=' py-6 bg-[#ccc3c3] border-2 border-black disabled:opacity-50 text-xl font-bold flex items-center gap-8 rounded-full px-16 lg:px-32'>
           {loading ? (<span>

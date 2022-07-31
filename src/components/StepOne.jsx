@@ -6,6 +6,7 @@ import { useState } from 'react'
 
 const StepOne = () => {
   const [formErrors, setFormErrors] = useState({});
+  const [enable, SetEnable] = useState()
 
     let valueRec;
     const {userData, setUserData, handleNextClick } = useFormContext()
@@ -36,7 +37,7 @@ const StepOne = () => {
       e.preventDefault();
       (setFormErrors(validate(userData)))
 
-      if(Object.keys(formErrors).length === 0){
+      if((userData["amount"] >= 150)){
         handleNextClick("two")
   
       }
@@ -46,28 +47,28 @@ const StepOne = () => {
   
      
   
-     if(userData["paymentCrypto"] === "bnb" && (userData["amount"])){
-        valueRec = userData["amount"] * 277 / 0.01
-     }
+    //  if(userData["paymentCrypto"] === "bnb" && (userData["amount"])){
+    //     valueRec = userData["amount"] * 277 / 0.01
+    //  }
 
-     if(userData["paymentCrypto"] === "sol" && (userData["amount"])){
-      valueRec = userData["amount"] * 43 / 0.01
-   }
+  //    if(userData["paymentCrypto"] === "sol" && (userData["amount"])){
+  //     valueRec = userData["amount"] * 43 / 0.01
+  //  }
 
-  if(userData["paymentCrypto"] === "eth" && (userData["amount"])){
-    valueRec = userData["amount"] * 1500 / 0.01
-  }
-  if(userData["paymentCrypto"] === "usdt_erc20" && (userData["amount"])){
+  // if(userData["paymentCrypto"] === "eth" && (userData["amount"])){
+  //   valueRec = userData["amount"] * 1500 / 0.01
+  // }
+  if(userData["paymentCrypto"]  && (userData["amount"])){
     valueRec = userData["amount"] * 1 / 0.01
   }
-  if(userData["paymentCrypto"] === "busd_erc20" && (userData["amount"])){
-    valueRec = userData["amount"] * 1 / 0.01
-  }
+  // if(userData["paymentCrypto"] === "busd_erc20" && (userData["amount"])){
+  //   valueRec = userData["amount"] * 1 / 0.01
+  // }
  
 
-  if(userData["paymentCrypto"] === "bnb_bep2" && (userData["amount"])){
-    valueRec = userData["amount"] * 277 / 0.01
-  }
+  // if(userData["paymentCrypto"] === "bnb_bep2" && (userData["amount"])){
+  //   valueRec = userData["amount"] * 277 / 0.01
+  // }
   
      
 
@@ -79,20 +80,23 @@ const StepOne = () => {
         <div className='w-full' >
         <h3 className='text-xl py-8 md:text-2xl font-bold'>Enter Amount & Payment Method</h3>
         <div className="inputs space-y-8 w-full">
-            <input
-            value={userData["amount"]}
+           <div className="flex flex-col gap-2 form-group">
+           <div className="input-icon">
+           <input
+            value={userData["amount"] || ''}
             onChange={(e) => setUserData({...userData, "amount": e.target.value})}
             
-            className='p-6 border-black bg-inherit outline outline-1 w-full' type="number" placeholder='Enter an Amount, Minimum 3, 150$ minimum for ETH' />
-            {(userData["amount"] < 3) &&  !(userData["paymentCrypto"]  === "eth") && (
-              <span>enter an amount greater than 3 and 150$ minimum for ETH! </span>
+            className='p-6 border-black bg-inherit outline outline-1 w-full' type="number" placeholder='Enter an Amount in dollars' />
+            {(userData["amount"] < 150) && (
+              <span className='text-red-600 font-bold'>minimum purchase is 150$! </span>
             )}
-            {(userData["amount"] < 0.1) &&  (userData["paymentCrypto"]  === "eth") && (
-              <span>enter an amount greater than 0.1 for ETH! </span>
-            )}
+            
+            <i className='font-bold text-xl text-red-600'>$</i>
+           </div>
+           </div>
 
             <select 
-            value={userData["paymentCrypto"]}
+            value={userData["paymentCrypto"] || ''}
             onChange={(e) => setUserData({...userData, "paymentCrypto": e.target.value})}
             
             className='p-4 text-xl bg-inherit font-semibold outline outline-1 w-full' name="crypto" id="">
@@ -129,7 +133,7 @@ const StepOne = () => {
       <div className="w-full md:w-3/4 items-center md:items-end justify-center mx-auto mr-6 md:justify-end pt-12">
       <button 
       type='submit'
-      disabled={(userData["paymentCrypto"] === undefined)}
+      disabled={(userData["paymentCrypto"] === undefined )}
       
       className='bg-[#ccc3c3] font-bold flex border-2 border-black items-center disabled:opacity-50 justify-center gap-8 w-full md:w-3/5 py-6 rounded-full text-xl ' >
             Continue

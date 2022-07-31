@@ -5,11 +5,42 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 import { useState } from 'react'
 import { useEffect } from 'react'
-const Admin = () => {
-  const[data, setData] = useState([])
-  useEffect(()=>{
 
-  }, [])
+const client = axios.create({
+  baseURL: "https://backendqwotum.herokuapp.com/api/forms" 
+});
+const Admin = () => {
+ 
+  const[forms, setForms] = useState([])
+
+
+  const fetchData = async () =>{
+    fetch('https://backendqwotum.herokuapp.com/api/forms')
+    .then((response) => response.json())
+    .then((res) => {
+       setForms(res);
+    })
+    .catch((err) => {
+       console.log(err.message);
+    });
+
+  }
+  console.log(forms)
+  useEffect(() => {
+
+    fetchData()
+ }, []);
+
+     // const fetchData = async () =>{
+    //   try {
+    //   await client.get().then((response) =>  response.json()
+    //  ).then(res => console.log(res));
+     
+      
+    // } catch (error) {
+    //   console.log(error)
+    // }}
+
   return (
     <ChakraProvider>
 
@@ -26,57 +57,85 @@ const Admin = () => {
                   className="!capitalize min-w-[250px] sm:min-w-0 !font-sans !sm:text-base !text-[15px] !font-semibold"
                   px="15px"
                 >
-                  Project Title
+                  First Name
                 </Th>
                 <Th
                   px="15px"
                   className="!capitalize min-w-[130px] sm:min-w-0 !font-sans !sm:text-base !text-[15px] !font-semibold"
                 >
-                  Views
+                  Last Name
                 </Th>
                 <Th
                   px="15px"
                   className="!capitalize min-w-[175px] sm:min-w-0 !font-sans !sm:text-base !text-[15px] !font-semibold"
                 >
-                  Comments
+                  Email
                 </Th>
+
+               
 
                 <Th
                   px="15px"
-                  className="!capitalize min-w-[175px] sm:min-w-0 !font-sans !sm:text-base !text-[15px] !font-semibold"
+                  className="!capitalize !font-sans !sm:text-base !text-[15px] !font-semibold "
                 >
-                  Appreciations
+                 Amount
                 </Th>
 
                 <Th
                   px="15px"
                   className="!capitalize !font-sans !sm:text-base !text-[15px] !font-semibold "
                 >
-                  Status
+                 Payment Crypto
                 </Th>
+                <Th
+                  px="15px"
+                  className="!capitalize min-w-[175px] sm:min-w-0 !font-sans !sm:text-base !text-[15px] !font-semibold"
+                >
+                  Wallet address
+                </Th>
+
+                <Th
+                  px="15px"
+                  className="!capitalize min-w-[175px] sm:min-w-0 !font-sans !sm:text-base !text-[15px] !font-semibold"
+                >
+                  Phone Number
+                </Th>
+
+                
               </Tr>
             </Thead>
             <Tbody>
-              
-                <Tr
+              {forms?.map((form) => {
+                return (
+                  <Tr
+                  key={form._id}
                   className="cursor-pointer"
                 >
                   <Td px="15px" className="text-sm sm:text-[15px]">
-                    wale
+                    {form.firstname}
                   </Td>
                   <Td px="15px" className="text-sm sm:text-[15px]">
-                    tade
+                  {form.lastname}
                   </Td>
                   <Td px="15px" className="text-sm sm:text-[15px]">
-                    wale
+                  {form.email}
                   </Td>
                   <Td px="15px" className="text-sm sm:text-[15px]">
-                    kunle
+                  {form.amount}
                   </Td>
+                  <Td px="15px" className="text-sm uppercase sm:text-[15px]">
+                  {form.paymentCrypto}
+                  </Td>
+
                   <Td px="15px" className="text-sm sm:text-[15px]">
-                    valencia
+                   {form.wallet_address}
                   </Td>
                 </Tr>
+
+                )
+              })}
+              
+                
               
             </Tbody>
           </Table>

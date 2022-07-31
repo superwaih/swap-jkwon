@@ -11,7 +11,19 @@ body{
 .banner{
   border: 0.6px solid;
 }
-
+.input-icon {
+  position: relative;
+}
+.input-icon > i {
+  position: absolute;
+  display: block;
+  transform: translate(0, -50%);
+  top: 50%;
+  pointer-events: none;
+  width: 25px;
+  text-align: center;
+	font-style: normal;
+}
 .loadingSpinnerContainer {
   position: fixed;
   top: 0;

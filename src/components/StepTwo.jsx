@@ -12,8 +12,7 @@ const StepTwo = () => {
   const { register, handleSubmit, setValue, formState: { errors } } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    console.log(errors);
+   
     setUserData({...userData, "firstname" : data.firstname, "lastname" : data.lastname,
     "email" : data.email,
     "wallet_address" : data.wallet_address,
@@ -33,9 +32,7 @@ const StepTwo = () => {
     }
   }, [userData, setValue]);
 
-  const handleBack = () => {
-    handleNextClick("one")
-  }
+
 
 
 
