@@ -2,6 +2,8 @@
 import SolanaCode from "../components/img/solana.png"
 import ERCBSCCode from "../components/img/eth_erc20.png"
 import Bep2Code from "../components/img/bnb_bep2.png"
+import Bitcoin from "../components/img/bitcoin.png"
+
 
 
 export const data = [
@@ -55,5 +57,16 @@ export const data = [
         "qr_code": Bep2Code,
         "address": "0x6d517846a84f882c7018cABfBBF9961bf0Af1f92"
     },
+
+    {
+        "id": 7,
+        "network": "bitcoin",
+        "value": "bitcon",
+        "token_name": "bitcoin",
+        "qr_code": Bitcoin,
+        "address": "bc1qlcrcdle84nme90jctvwp6f5uzz5zulzc720fjl"
+    },
+
+    
 
 ]

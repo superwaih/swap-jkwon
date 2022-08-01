@@ -2,13 +2,14 @@
 import React, { createContext, useContext, useState } from "react"
 import {  toast } from 'react-toastify';
 import axios from "axios"
-
+import { useNavigate } from "react-router-dom";
 import App from "./App"
 
 const FormContext = createContext()
 
 
 export const useFormContext =() => useContext(FormContext)
+
 
 const client = axios.create({
     baseURL: "https://backendqwotum.herokuapp.com/api/forms" 
@@ -17,7 +18,10 @@ const client = axios.create({
 const FormProvider = () => {
    
     const [activeStep, setActiveStep] = useState('one')
-  
+    const[pending, setPending] = useState(false)
+
+   
+
 
     const handleActiveStep = (e) =>{
       setActiveStep(e.target.id)
@@ -32,20 +36,7 @@ const FormProvider = () => {
     const [loading, setLoading] = useState(false)
 
    
-    const addPosts = async ( body) => {
-       fetch("https://backendqwotum.herokuapp.com/api/forms/create", {
-     
-        method: "POST",
-        body: userData,
-        headers: {
-            "Content-type": "application/json; charset=UTF-8"
-        }
-    })
-    .then(response => response.json())
-     
-    // Displaying results to console
-    .then(json => console.log(json));
-   };
+ 
      const submitForm = async () => {
         setLoading(true);
         try {
@@ -56,6 +47,7 @@ const FormProvider = () => {
              lastname: userData["lastname"],
              email: userData["email"],
              amount: userData["amount"],
+             jkw_amount: (userData["amount"] * 1) * 201716.738,
              paymentCrypto: userData["paymentCrypto"],
              wallet_address: userData["wallet_address"]
            }),
@@ -68,6 +60,9 @@ const FormProvider = () => {
               toast.success("Data sent Successfully");
               setLoading(false);
               setUserData('')
+              setPending(true)
+              
+              
             }})
           
 
@@ -76,18 +71,6 @@ const FormProvider = () => {
           toast.error("An error occured")
         }
       };
-
-    function submitData(){
-        setLoading(true)
-        try {
-            submitForm(finalData)
-
-        } catch (error) {
-            toast.error("An error occured")
-        }
-
-
-    } 
    
         
     return (
@@ -99,6 +82,7 @@ const FormProvider = () => {
             handleActiveStep,
             submitForm,
             userData, 
+            pending,
             
             errors,
             setError,

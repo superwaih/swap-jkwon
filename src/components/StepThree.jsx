@@ -7,10 +7,10 @@ import { data } from '../utils/data';
 import { useState } from 'react';
 import {CgSpinner} from "react-icons/cg"
 import Spinner from './Spinner';
-
+import CountDownSpinner from '../pages/countdownSpinner';
 
 const StepThree = () => {
-  const {userData, loading, handleNextClick, setUserData, submitForm} = useFormContext()
+  const {userData, loading, handleNextClick, setUserData, pending, submitForm} = useFormContext()
   const notify = (text) => {
     navigator.clipboard?.writeText && navigator.clipboard.writeText(text)
     toast.success("Address Copied!", {
@@ -20,51 +20,32 @@ const StepThree = () => {
   };
 
     let recieveAmount;
-    // if (userData["paymentMode"] === "bnb" && (userData["amount"])) {
-    //   recieveAmount = userData["amount"] * 277 / 0.01
-    // }
-
-    // if (userData["paymentMode"] === "sol" && (userData["amount"])) {
-    //   recieveAmount = userData["amount"] * 43 / 0.01
-
-    // }
-
-    // if (userData["paymentMode"] === "eth" && (userData["amount"])) {
-    //   recieveAmount = userData["amount"] * 1500 / 0.01
-
-    // }
     if (userData["paymentCrypto"]  && (userData["amount"])) {
-      recieveAmount = userData["amount"] * 1 / 0.01
+      recieveAmount = (userData["amount"] * 1) * 201716.738
       
 
     }
-    // if (userData["paymentMode"] === "busd_erc20" && (userData["amount"])) {
-    //   recieveAmount = userData["amount"] * 1 / 0.01
-
-    // }
-
-
-    // if (userData["paymentMode"] === "bnb_bep2" && (userData["amount"])) {
-    //   recieveAmount = userData["amount"] * 277 / 0.01
-
-    // }
+ 
   
   if (loading) {
     return <Spinner />
   }
+ 
   
   return (
     <>
 
      
-          <div className='grid relative grid-cols-1 md:grid-cols-2 p-4 gap-8 md:p-8' >
+          <div className='grid relative normal grid-cols-1 md:grid-cols-2 p-4 gap-8 md:p-8' >
             <div className='flex gap-4 flex-col'>
             <select 
+            key={25}
             value={userData["paymentCrypto"]}
+            readOnly
             // onChange={(e) => setUserData({...userData, "paymentMode": e.target.value})}
             
-            className='p-6 w-full text-xl bg-inherit font-semibold outline outline-1' name="crypto" id="">
-            <option address="" value="">Select Crypto</option>
+            className='p-6 w-full text-xl bg-[#0A182C] font-semibold outline outline-1' name="crypto" id="">
+            <option key={26} address="" value="">Select Crypto</option>
             {data.map((data) => {
               return(
                 <option className='uppercase' name={data.address} key={data.id} value={data.value}>{data.token_name}</option> 
@@ -89,7 +70,7 @@ const StepThree = () => {
                 defaultValue={data.address}
                 onChange={(e) => setUserData({...userData, "paymentAddress": e.target.value})}
                 name="address_bar"
-                className='w-full border-none outline-none'
+                className='w-full border-none bg-[#0A182C] text-md outline-none'
                 placeholder='Wallet Address of the selected crypto will appear here' />
 
                 <BiCopy
@@ -104,7 +85,7 @@ const StepThree = () => {
               
               return(
                 <>
-                <p key={data.id} className='font-bold' >Please send {userData["amount"]} dollars worth of {data.token_name} to <span
+                <p key={data.id} className='' >Please send <span className='uppercase text-xl text-red-500 font-bold' >{userData["amount"]} dollars</span> worth of <span className='font-bold text-xl text-red-500 uppercase'>{data.token_name}</span> to <span
                 onClick={() =>notify(data.address)}
                 className='text-green-400 cursor-pointer break-all' >{data.address}</span> and you'll receive {recieveAmount} Jkwon. Please make sure the amount is correct to avoid any delays. Once you have initaited your payment please click submit and our system will notify you when we have recieved and cleared your funds</p>
                <input type="text"
@@ -114,8 +95,8 @@ const StepThree = () => {
                className='hidden'
                />
              
-               {console.log(userData["recieveAmount"])}
-                </>
+              
+                     </>
               )
             })}
               
@@ -153,14 +134,14 @@ const StepThree = () => {
 
         <button
         onClick={() => handleNextClick("two")}
-          className=' py-6 bg-[#ccc3c3] border-2 border-black disabled:opacity-50 text-xl font-bold flex items-center gap-8 rounded-full px-12 lg:px-20'>
+          className=' py-6 bg-blue-600 text-white hover:opacity-70 border-2 border-black disabled:opacity-50 text-xl font-bold flex items-center gap-8 rounded-full px-12 lg:px-20'>
           Back
         </button>
         <button
         disabled={loading || !(userData["paymentCrypto"])}
         onClick={submitForm}
 
-          className=' py-6 bg-[#ccc3c3] border-2 border-black disabled:opacity-50 text-xl font-bold flex items-center gap-8 rounded-full px-16 lg:px-32'>
+          className=' py-6 bg-blue-600 text-white hover:opacity-70 border-2 border-black disabled:opacity-50 text-xl font-bold flex items-center gap-8 rounded-full px-16 lg:px-32'>
           {loading ? (<span>
                 <CgSpinner className="animate-spin h-6 w-6 mx-auto text-center" />
               </span>) : (
@@ -170,6 +151,7 @@ const StepThree = () => {
 
            
       </div>
+      {pending && (<CountDownSpinner />)}
       <ToastContainer />
 
 

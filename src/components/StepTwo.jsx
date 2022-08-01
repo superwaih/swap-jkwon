@@ -41,7 +41,7 @@ const StepTwo = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className='p-8 w-full'>
+      className='p-8 w-full text-white'>
       <h3 className='text-xl py-8 md:text-2xl font-bold' >Enter your details</h3>
       <div className='inputs grid grid-cols-1 md:grid-cols-2 gap-8' >
 
@@ -144,7 +144,7 @@ const StepTwo = () => {
         <button
           onClick={() => handleNextClick("one")}
 
-          className='p-6 bg-[#ccc3c3] border-2 border-black text-xl font-bold flex items-center gap-8 rounded-full px-12'
+          className='p-6 bg-blue-600 hover:opacity-70 border-2 border-black text-xl font-bold flex items-center gap-8 rounded-full px-12'
 
         >
           <FaArrowCircleLeft />
@@ -156,7 +156,7 @@ const StepTwo = () => {
           type="submit"
           // onClick={() => handleNextClick("three")}
 
-          className='p-6 bg-[#ccc3c3] border-2 border-black disabled:opacity-50 text-xl font-bold flex items-center gap-8 rounded-full px-12'>
+          className='p-6 bg-blue-600 hover:opacity-70 border-2 border-black disabled:opacity-50 text-xl font-bold flex items-center gap-8 rounded-full px-12'>
           Continue <FaArrowCircleRight />
         </button>
       </div>

@@ -100,6 +100,12 @@ const Admin = () => {
                 >
                   Phone Number
                 </Th>
+                <Th
+                  px="15px"
+                  className="!capitalize min-w-[175px] sm:min-w-0 !font-sans !sm:text-base !text-[15px] !font-semibold"
+                >
+                  JkWon Amount
+                </Th>
 
                 
               </Tr>

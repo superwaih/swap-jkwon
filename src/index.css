@@ -2,14 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Urbanist&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Revalia&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono&display=swap');
 
 body{
-  font-family: 'Urbanist', sans-serif;
-  background: white;
+  font-family: 'Revalia', cursive;
+  background: #0A182C;
 }
+.normal{
+  font-family: 'Azeret Mono', monospace;
+  color: white;
+}
+
 .banner{
-  border: 0.6px solid;
+  border: 1px solid white;
 }
 .input-icon {
   position: relative;
@@ -37,6 +43,7 @@ body{
   align-items: center;
 }
 
+
 .loadingSpinner {
   width: 64px;
   height: 64px;
@@ -45,3 +52,12 @@ body{
   border-radius: 50%;
   animation: spin 1.2s linear infinite;
 }
+
+/* .loadingSpinner {
+  width: 64px;
+  height: 64px;
+  color: aquamarine;
+  border: 8px solid;
+  border-color: #000 transparent #555 transparent;
+  border-radius: 50%;
+} */

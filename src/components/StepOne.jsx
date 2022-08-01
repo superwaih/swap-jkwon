@@ -5,38 +5,13 @@ import { useState } from 'react'
 
 
 const StepOne = () => {
-  const [formErrors, setFormErrors] = useState({});
-  const [enable, SetEnable] = useState()
 
     let valueRec;
     const {userData, setUserData, handleNextClick } = useFormContext()
 
 
-    const validate = (values) => {
-      const errors = {};
-    
-      if (!values["amount"]) {
-        errors.amount = "amount is required!";
-      }else if((values["amount"] < 3) &&  (!values["paymentCrypto"]  === "eth")){
-        errors.amount = "please enter an amount greater than 3!";
-      }else if((values["amount"] < 0.1) &&  (values["paymentCrypto"]  === "eth")){
-        errors.amount = "please enter an amount greater or equal to than 0.1 ETH!";
-
-      }
-      if (!values["paymentCrypto"]) {
-        errors.payment = "please select a mode of payment!";
-      } else if (values["paymentCrypto"] === undefined) {
-        errors.payment = "please select a mode of payment!";
-      }
-    
-      
-      return errors;
-    };
-
     const handleSubmit = (e) =>{
       e.preventDefault();
-      (setFormErrors(validate(userData)))
-
       if((userData["amount"] >= 150)){
         handleNextClick("two")
   
@@ -46,36 +21,17 @@ const StepOne = () => {
 
   
      
-  
-    //  if(userData["paymentCrypto"] === "bnb" && (userData["amount"])){
-    //     valueRec = userData["amount"] * 277 / 0.01
-    //  }
-
-  //    if(userData["paymentCrypto"] === "sol" && (userData["amount"])){
-  //     valueRec = userData["amount"] * 43 / 0.01
-  //  }
-
-  // if(userData["paymentCrypto"] === "eth" && (userData["amount"])){
-  //   valueRec = userData["amount"] * 1500 / 0.01
-  // }
   if(userData["paymentCrypto"]  && (userData["amount"])){
-    valueRec = userData["amount"] * 1 / 0.01
+    valueRec = (userData["amount"] * 1) * 201716.738
   }
-  // if(userData["paymentCrypto"] === "busd_erc20" && (userData["amount"])){
-  //   valueRec = userData["amount"] * 1 / 0.01
-  // }
- 
 
-  // if(userData["paymentCrypto"] === "bnb_bep2" && (userData["amount"])){
-  //   valueRec = userData["amount"] * 277 / 0.01
-  // }
   
      
 
     
   return (
     <form onSubmit={handleSubmit} 
-    className='px-2 flex lg:flex-row w-full justify-between lg:space-x-16 py-3 md:py-6 md:p-8 flex-col'>
+    className='px-2 flex lg:flex-row normal  text-white w-full justify-between lg:space-x-16 py-3 md:py-6 md:p-8 flex-col'>
         
         <div className='w-full' >
         <h3 className='text-xl py-8 md:text-2xl font-bold'>Enter Amount & Payment Method</h3>
@@ -96,15 +52,17 @@ const StepOne = () => {
            </div>
 
             <select 
+            
             value={userData["paymentCrypto"] || ''}
             onChange={(e) => setUserData({...userData, "paymentCrypto": e.target.value})}
             
-            className='p-4 text-xl bg-inherit font-semibold outline outline-1 w-full' name="crypto" id="">
+            className='p-4 text-xl bg-[#0A182C] font-semibold outline outline-1 w-full' name="crypto" id="">
             <option value="">Select Crypto</option>
             <option value="bnb">BSC BNB</option> 
             <option value="bnb_bep2">BEP2 BNB</option> 
             <option value="sol">Solana</option>
             <option value="usdt_erc20">USDT ERC20</option>
+            <option value="bitcon">Bitcoin</option>
             <option value="busd_erc20">BUSD ERC20</option>
             <option value="eth">ETH</option>
             </select> 
@@ -127,7 +85,7 @@ const StepOne = () => {
            value={valueRec !== undefined ? `${valueRec} Jkwon` : `0 Jkwon` }
            
            className='p-6 outline outline-1 bg-inherit' placeholder='=0' />
-           <p className='text-xl uppercase' >1 Jkwon = $0.01</p>
+           <p className='text-xl uppercase' >$1 = 201716.738 JKWON</p>
         </div>
         
       <div className="w-full md:w-3/4 items-center md:items-end justify-center mx-auto mr-6 md:justify-end pt-12">
@@ -135,7 +93,7 @@ const StepOne = () => {
       type='submit'
       disabled={(userData["paymentCrypto"] === undefined )}
       
-      className='bg-[#ccc3c3] font-bold flex border-2 border-black items-center disabled:opacity-50 justify-center gap-8 w-full md:w-3/5 py-6 rounded-full text-xl ' >
+      className='bg-blue-600 font-bold flex border-2 border-black items-center hover:opacity-50 hover:cursor-pointer disabled:opacity-40 justify-center gap-8 w-full md:w-3/5 py-6 rounded-full text-xl ' >
             Continue
             <FaArrowCircleRight />
         </button>
