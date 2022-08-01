@@ -18,7 +18,7 @@ const client = axios.create({
 const FormProvider = () => {
    
     const [activeStep, setActiveStep] = useState('one')
-    const[pending, setPending] = useState(true)
+    const[pending, setPending] = useState(false)
 
    
 
