@@ -7,7 +7,7 @@ import { data } from '../utils/data';
 import { useState } from 'react';
 import {CgSpinner} from "react-icons/cg"
 import Spinner from './Spinner';
-import CountDownSpinner from '../pages/countdownSpinner';
+import CountdownTimer from '../pages/countdownSpinner';
 
 const StepThree = () => {
   const {userData, loading, handleNextClick, setUserData, pending, submitForm} = useFormContext()
@@ -19,17 +19,27 @@ const StepThree = () => {
     // const copyText = 
   };
 
+  ;
     let recieveAmount;
     if (userData["paymentCrypto"]  && (userData["amount"])) {
       recieveAmount = (userData["amount"] * 1) * 201716.738
       
 
     }
+
+    const THREE_DAYS_IN_MS = 15 * 60 * 1000;
+    const NOW_IN_MS = new Date().getTime();
+  
+    const dateTimeAfterMinutes = NOW_IN_MS + THREE_DAYS_IN_MS
  
   
   if (loading) {
     return <Spinner />
   }
+  if(pending){
+    return <CountdownTimer targetDate={dateTimeAfterMinutes} />
+  }
+ 
  
   
   return (
@@ -151,8 +161,8 @@ const StepThree = () => {
 
            
       </div>
-      {pending && (<CountDownSpinner />)}
       <ToastContainer />
+      
 
 
     </>

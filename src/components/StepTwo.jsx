@@ -51,7 +51,7 @@ const StepTwo = () => {
           <input
             type="text"
             {...register("firstname", { required: true, maxLength: 30 })}
-            className='p-5 font-bold outline outline-1 bg-inherit' placeholder='Firstname*' />
+            className='p-6 font-bold placeholder:p-2 placeholder:text-md outline outline-1 bg-inherit' placeholder='First Name*' />
 
           {errors.firstname?.type === "required" && (
                     <span className="text-red-700 text-sm">
@@ -65,7 +65,7 @@ const StepTwo = () => {
         <div className='flex flex-col'>
           <input
             {...register("lastname", { required: true, maxLength: 20 })}
-            className='p-5 outline font-bold outline-1 bg-inherit' type="text" placeholder='Lastname*' />
+            className='p-6 outline  placeholder:p-2 placeholder:text-md h-full font-bold outline-1 bg-inherit' type="text" placeholder='Last Name*' />
 
               {errors.lastname?.type === "required" && (
                     <span className="text-red-700 text-sm">
@@ -80,7 +80,7 @@ const StepTwo = () => {
             type="email"
             {...register("email", {required: true, pattern: /^\S+@\S+$/i})}
 
-            className='p-5 outline font-bold outline-1 bg-inherit'
+            className='p-6 outline placeholder:p-2 placeholder:text-md font-bold outline-1 bg-inherit'
             placeholder='Email Address*' />
           {errors.email?.type === "required" && (
                     <span className="text-red-700 text-sm">
@@ -90,7 +90,7 @@ const StepTwo = () => {
 
             {errors.email?.type === "pattern" && (
                     <span className="text-red-700 text-sm">
-                      Email valid Email
+                      invalid Email
                     </span>
                   )}
 
@@ -101,7 +101,7 @@ const StepTwo = () => {
           <input
           {...register("wallet_address", { required: true, minLength: 30 })}
 
-            className='p-5 outline font-bold outline-1 bg-inherit' type="text" id=""
+            className='p-6 outline placeholder:p-2 placeholder:text-md font-bold outline-1 bg-inherit' type="text" id=""
 
             placeholder='Wallet Address*' />
          {errors.wallet_address?.type === "required" && (
@@ -111,7 +111,7 @@ const StepTwo = () => {
                   )}
                   {errors.wallet_address?.type === "minLength" && (
                     <span className="text-red-700 text-sm">
-                      Enter valid wallet address
+                      Enter valid wallet address!
                     </span>
                   )}
         </div>
@@ -123,7 +123,7 @@ const StepTwo = () => {
           {...register("phone_number", {minLength: 6, maxLength: 15})}
 
             type="telephone"
-            className='p-5 outline font-bold outline-1 bg-inherit'
+            className='p-6 outline placeholder:p-2 placeholder:text-md font-bold outline-1 bg-inherit'
             placeholder='Phone Number' />
 
                 {errors.phone_number?.type === "minLength" && (

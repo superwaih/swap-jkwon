@@ -18,7 +18,7 @@ const client = axios.create({
 const FormProvider = () => {
    
     const [activeStep, setActiveStep] = useState('one')
-    const[pending, setPending] = useState(false)
+    const[pending, setPending] = useState(true)
 
    
 
@@ -60,9 +60,8 @@ const FormProvider = () => {
               toast.success("Data sent Successfully");
               setLoading(false);
               setUserData('')
-              setPending(true)
-              
-              
+            setTimeout(setPending(true), 5000)
+
             }})
           
 
@@ -83,6 +82,7 @@ const FormProvider = () => {
             submitForm,
             userData, 
             pending,
+            setPending,
             
             errors,
             setError,

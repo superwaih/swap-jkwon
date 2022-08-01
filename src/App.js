@@ -4,7 +4,6 @@ import { useFormContext } from "./FormContext";
 import Admin from "./pages/Admin";
 import Homepage from './pages/Homepage';
 import { ChakraProvider } from '@chakra-ui/react'
-import CountDownSpinner from './pages/countdownSpinner';
 
 
 function App() {
@@ -20,7 +19,6 @@ function App() {
     <Route path="/" exact element={<Homepage />} />
 
       <Route path="/admin" exact element={<Admin />} />
-      <Route path="/success" exact element={<CountDownSpinner />} />
 
     </Routes>
     </BrowserRouter>

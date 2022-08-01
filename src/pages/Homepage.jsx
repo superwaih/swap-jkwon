@@ -4,11 +4,15 @@ import { useFormContext } from '../FormContext';
 import StepOne from "../components/StepOne"
 import StepTwo from "../components/StepTwo"
 import StepThree from "../components/StepThree"
+import CountdownTimer from './countdownSpinner';
 
 
 
 const Homepage = () => {
-    const {activeStep, handleActiveStep} = useFormContext()
+    const {activeStep, handleActiveStep, pending} = useFormContext()
+   
+
+   
   return (
     <div className="App mx-auto max-w-7xl text-black p-4 md:p-12 shadow-md flex items-center justify-center ">
      
@@ -32,6 +36,7 @@ const Homepage = () => {
         </div>
         
         {activeStep === "one" && <StepOne />}
+    
         
         {activeStep === "two" && <StepTwo />}
         {activeStep === "three" && <StepThree />}
