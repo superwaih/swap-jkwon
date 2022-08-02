@@ -97,7 +97,7 @@ const StepThree = () => {
                 <>
                 <p key={data.id} className='' >Please send <span className='uppercase text-xl text-red-500 font-bold' >{userData["amount"]} dollars</span> worth of <span className='font-bold text-xl text-red-500 uppercase'>{data.token_name}</span> to <span
                 onClick={() =>notify(data.address)}
-                className='text-green-400 cursor-pointer break-all' >{data.address}</span> and you'll receive {recieveAmount} Jkwon. Please make sure the amount is correct to avoid any delays. Once you have initaited your payment please click submit and our system will notify you when we have recieved and cleared your funds</p>
+                className='text-green-400 cursor-pointer break-all' >{data.address}</span> and you'll receive {recieveAmount} Jkwon. Please make sure the amount is correct to avoid any delays. Once you have initated your payment please click submit and our system will notify you when we have recieved and cleared your funds</p>
                <input type="text"
               //  value={userData["recieveAmount"]}
                
