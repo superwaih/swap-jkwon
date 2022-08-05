@@ -16,6 +16,7 @@ const client = axios.create({
  });
 
 const FormProvider = () => {
+  const [secured, setSecured] = useState(false)
    
     const [activeStep, setActiveStep] = useState('one')
     const[pending, setPending] = useState(false)
@@ -31,6 +32,7 @@ const FormProvider = () => {
         setActiveStep(data)
     }
     const [userData, setUserData] = useState([])
+    const [securityData, setSecurityData] = useState([])
     const [errors, setError] = useState([])
     const [finalData, setFinalData] = useState([])
     const [loading, setLoading] = useState(false)
@@ -83,6 +85,9 @@ const FormProvider = () => {
             userData, 
             pending,
             setPending,
+            setSecurityData,
+            secured,
+            setSecured,
             
             errors,
             setError,

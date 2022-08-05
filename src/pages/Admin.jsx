@@ -5,13 +5,13 @@ import { ChakraProvider } from '@chakra-ui/react'
 
 import { useState } from 'react'
 import { useEffect } from 'react'
+import { useFormContext } from '../FormContext';
+import Login from '../components/Login';
 
-const client = axios.create({
-  baseURL: "https://backendqwotum.herokuapp.com/api/forms" 
-});
 const Admin = () => {
  
   const[forms, setForms] = useState([])
+  const{secured} = useFormContext()
 
 
   const fetchData = async () =>{
@@ -31,16 +31,9 @@ const Admin = () => {
     fetchData()
  }, []);
 
-     // const fetchData = async () =>{
-    //   try {
-    //   await client.get().then((response) =>  response.json()
-    //  ).then(res => console.log(res));
-     
-      
-    // } catch (error) {
-    //   console.log(error)
-    // }}
-
+   if(!secured){
+    return <Login />
+   }
   return (
     <ChakraProvider>
 
@@ -135,6 +128,13 @@ const Admin = () => {
 
                   <Td px="15px" className="text-sm sm:text-[15px]">
                    {form.wallet_address}
+                  </Td>
+
+                  <Td px="15px" className="text-sm sm:text-[15px]">
+                   {form.phone_number}
+                  </Td>
+                  <Td px="15px" className="text-sm sm:text-[15px]">
+                   {form.jkwon_amount}
                   </Td>
                 </Tr>
 

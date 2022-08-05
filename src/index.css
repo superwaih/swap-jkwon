@@ -13,6 +13,10 @@ body{
   font-family: 'Azeret Mono', monospace;
   color: white;
 }
+.normal-text{
+  font-family: 'Azeret Mono', monospace;
+  
+}
 
 .banner{
   border: 1px solid white;
