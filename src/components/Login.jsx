@@ -11,8 +11,7 @@ const Login = () => {
   const [invalidPass, setInvalidPass] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = (data) => {
-    console.log(process.env.ADMIN_PASSWORD)
-   if(data.password === process.env.ADMIN_PASSWORD){
+   if(data.password === ADMIN_PASSWORD){
     setSecured(true)
    }else{
         setInvalidPass(true)
