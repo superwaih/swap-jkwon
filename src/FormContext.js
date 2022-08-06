@@ -49,7 +49,8 @@ const FormProvider = () => {
              lastname: userData["lastname"],
              email: userData["email"],
              amount: userData["amount"],
-             jkw_amount: (userData["amount"] * 1) * 201716.738,
+            phone_number: userData["phone_number"],
+             jkwon_amount: ((userData["amount"] * 1) * 201716.738),
              paymentCrypto: userData["paymentCrypto"],
              wallet_address: userData["wallet_address"]
            }),
